@@ -10,7 +10,7 @@ A hands-on Linux system administration lab, built and broken on purpose to pract
 | Guest OS | Ubuntu 26.04 LTS Desktop ("resolute") |
 | VM | `vm01`: 4 vCPU, 10 GB RAM, 25 GB OS disk + 20 GB data disk |
 | Adapter 1 | NAT: outbound internet (apt, updates) |
-| Adapter 2 | Host-only (`192.168.56.0/24`): SSH from Windows, future VM-to-VM traffic |
+| Adapter 2 | Host-only (`xxx.xxx.xxx.0/24` = VirtualBox host-only subnet): SSH from Windows, future VM-to-VM traffic |
 
 Why NAT + Host-only: NAT gives the VM internet without exposing it; host-only gives a stable private lab network reachable from the host. It's the local equivalent of a cloud VNet with a private subnet and outbound NAT.
 

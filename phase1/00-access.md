@@ -10,17 +10,18 @@
 2. In the VM:
    ```bash
    sudo apt update && sudo apt install -y openssh-server
-   ip -br a        # enp0s3 = NAT (10.0.2.15), enp0s8 = host-only (192.168.56.x)
+   ip -br a        # enp0s3 = NAT (xxx.xxx.xxx.xxx = VM NAT IP), enp0s8 = host-only (xxx.xxx.xxx.xxx = VM host-only IP)
    ```
 3. From Windows PowerShell:
    ```powershell
-   ssh vboxuser@192.168.56.101
+   ssh vboxuser@xxx.xxx.xxx.xxx    # VM host-only IP (from `ip -br a`, enp0s8)
    ```
 
 Optional `~/.ssh/config` on Windows:
 ```
 Host vm01
-    HostName 192.168.56.101
+    # HostName = VM host-only IP
+    HostName xxx.xxx.xxx.xxx
     User vboxuser
 ```
 
@@ -28,7 +29,7 @@ Host vm01
 
 | Problem | Cause | Fix |
 |---|---|---|
-| Only `enp0s3` / `10.0.2.15` visible | NAT only; Windows can't reach NAT guests | Add the host-only adapter (Adapter 2) |
+| Only `enp0s3` / `xxx.xxx.xxx.xxx` (VM NAT IP) visible | NAT only; Windows can't reach NAT guests | Add the host-only adapter (Adapter 2) |
 | `Permission denied` on password | No username given, so SSH used the Windows domain login (`DOMAIN\user`) | Specify the Linux user: `ssh vboxuser@...` |
 
 ## Network modes compared
@@ -39,4 +40,4 @@ Host vm01
 | Host-only | ❌ | ✅ | ✅ |
 | Bridged | ✅ | ✅ | ✅ (but exposed to LAN, IP changes per network) |
 
-Host-only IP comes from VirtualBox DHCP and can change; a static IP via netplan is planned for Phase 2.
+The VM host-only IP comes from VirtualBox DHCP and can change; a static IP via netplan is planned for Phase 2.
